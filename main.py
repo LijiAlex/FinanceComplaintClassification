@@ -7,7 +7,6 @@ from finance_complaint.config.pipeline.training import FinanceConfig
 from finance_complaint.pipeline import TrainingPipeline
 
 
-
 def start_training(start=False):
     try:
         if not start:
@@ -37,7 +36,7 @@ def main(training_status, prediction_status):
 
 
 if __name__ == "__main__":
-    try:
+    try:        
         # arguments that decide whether to do training or prediction
         # ref: https://www.geeksforgeeks.org/command-line-option-and-argument-parsing-using-argparse-in-python/
         parser = argparse.ArgumentParser()        

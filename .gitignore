@@ -10,6 +10,7 @@ __pycache__/
 .Python
 build/
 Notebook/
+finance_artifact/
 develop-eggs/
 dist/
 downloads/

@@ -1,6 +1,6 @@
 import os
 import sys
-
+from finance_complaint.logger import logger
 
 class FinanceException(Exception):
 
@@ -9,6 +9,7 @@ class FinanceException(Exception):
         self.error_message = FinanceException.get_detailed_error_message(error_message=error_message,
                                                                          error_detail=error_detail
                                                                          )
+        logger.exception(self.error_message)
 
     @staticmethod
     def get_detailed_error_message(error_message: Exception, error_detail: sys) -> str:

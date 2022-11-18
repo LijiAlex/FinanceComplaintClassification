@@ -1,12 +1,13 @@
+from finance_complaint.constant.environment import *
+
 import os
 from pyspark.sql import SparkSession
+from dotenv import load_dotenv, find_dotenv
 
-from finance_complaint.constant.environment import AWS_ACCESS_KEY_ID_ENV_KEY,AWS_SECRET_ACCESS_KEY_ENV_KEY
-
+load_dotenv(find_dotenv())
 access_key_id = os.getenv(AWS_ACCESS_KEY_ID_ENV_KEY, )
 secret_access_key = os.getenv(AWS_SECRET_ACCESS_KEY_ENV_KEY, )
-
-#old
+#
 # spark = SparkSession.builder.master('local[*]').appName('finance_complaint') .getOrCreate()
 # hadoop_conf = spark._jsc.hadoopConfiguration()
 # hadoop_conf.set("fs.s3n.impl", "org.apache.hadoop.fs.s3native.NativeS3FileSystem")
@@ -33,4 +34,4 @@ spark_session._jsc.hadoopConfiguration().set("fs.s3a.impl","org.apache.hadoop.fs
 spark_session._jsc.hadoopConfiguration().set("com.amazonaws.services.s3.enableV4", "true")
 spark_session._jsc.hadoopConfiguration().set("fs.s3a.aws.credentials.provider","org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
 spark_session._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "ap-south-1.amazonaws.com")
-spark_session._jsc.hadoopConfiguration().set("fs.s3.buffer.dir","tmp")
+spark_session._jsc.hadoopConfiguration().set(" fs.s3.buffer.dir","tmp")
