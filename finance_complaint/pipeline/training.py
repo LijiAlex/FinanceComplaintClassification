@@ -3,8 +3,8 @@ import sys
 from finance_complaint.exception import FinanceException
 from finance_complaint.logger import logger
 from finance_complaint.config.pipeline.training import FinanceConfig
-from finance_complaint.entity.artifact_entity import DataIngestionArtifact
-from finance_complaint.component import DataIngestion
+from finance_complaint.entity.artifact_entity import *
+from finance_complaint.component import DataIngestion, DataValidation, DataTransformation
 """ from finance_complaint.component import DataIngestion, DataValidation, DataTransformation, ModelTrainer, \
     ModelEvaluation, \
     ModelPusher
@@ -30,28 +30,31 @@ class TrainingPipeline:
         except Exception as e:
             raise FinanceException(e, sys)
 
-    # def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) -> DataValidationArtifact:
-    #     try:
-    #         data_validation_config = self.finance_config.get_data_validation_config()
-    #         data_validation = DataValidation(data_ingestion_artifact=data_ingestion_artifact,
-    #                                          data_validation_config=data_validation_config)
+    def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) -> DataValidationArtifact:
+        try:
+            logger.info(f"\n{'#'*15}Data Validation Started{'#'*15}")
+            data_validation_config = self.finance_config.get_data_validation_config()
+            data_validation = DataValidation(data_ingestion_artifact=data_ingestion_artifact,
+                                             data_validation_config=data_validation_config)
 
-    #         data_validation_artifact = data_validation.initiate_data_validation()
-    #         return data_validation_artifact
-    #     except Exception as e:
-    #         raise FinanceException(e, sys)
+            data_validation_artifact = data_validation.initiate_data_validation()
+            logger.info(f"\n{'#'*15}Data Validation Ended{'#'*15}")
+            return data_validation_artifact
+        except Exception as e:
+            raise FinanceException(e, sys)
 
-    # def start_data_transformation(self, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
-    #     try:
-    #         data_transformation_config = self.finance_config.get_data_transformation_config()
-    #         data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact,
-    #                                                  data_transformation_config=data_transformation_config
-
-    #                                                  )
-    #         data_transformation_artifact = data_transformation.initiate_data_transformation()
-    #         return data_transformation_artifact
-    #     except Exception as e:
-    #         raise FinanceException(e, sys)
+    def start_data_transformation(self, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
+        try:
+            logger.info(f"\n{'#'*15}Data Transformation Started{'#'*15}")
+            data_transformation_config = self.finance_config.get_data_transformation_config()
+            data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact,
+                                                     data_transformation_config=data_transformation_config
+                                                     )
+            data_transformation_artifact = data_transformation.initiate_data_transformation()
+            logger.info(f"\n{'#'*15}Data Transformation Ended{'#'*15}")
+            return data_transformation_artifact
+        except Exception as e:
+            raise FinanceException(e, sys)
 
     # def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
     #     try:
@@ -88,9 +91,9 @@ class TrainingPipeline:
         try:
             logger.info(f"\n{'#'*15}Training Pipeline Started{'#'*15}")
             data_ingestion_artifact = self.start_data_ingestion()
-            # data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
-            # data_transformation_artifact = self.start_data_transformation(
-            #     data_validation_artifact=data_validation_artifact)
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(
+                 data_validation_artifact=data_validation_artifact)
             # model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             # model_eval_artifact = self.start_model_evaluation(data_validation_artifact=data_validation_artifact,
             #                                                   model_trainer_artifact=model_trainer_artifact

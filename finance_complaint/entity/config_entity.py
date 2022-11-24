@@ -15,13 +15,12 @@ DataIngestionConfig = namedtuple("DataIngestionConfig", ["from_date",
                                                          "datasource_url"
                                                          ])
 
-# DataValidationConfig = namedtuple('DataValidationConfig', ["accepted_data_dir", "rejected_data_dir", "file_name"])
+DataValidationConfig = namedtuple('DataValidationConfig', ["accepted_data_dir", "rejected_data_dir", "file_name"])
 
-# DataTransformationConfig = namedtuple('DataTransformationConfig', ['file_name', 'export_pipeline_dir',
-#                                                                    'transformed_train_dir', "transformed_test_dir",
-
-#                                                                    "test_size"
-#                                                                    ])
+DataTransformationConfig = namedtuple('DataTransformationConfig', ['file_name', 'export_pipeline_dir',
+                                                                   'transformed_train_dir', "transformed_test_dir",
+                                                                   "test_size"
+                                                                   ])
 
 # ModelTrainerConfig = namedtuple("ModelTrainerConfig", ["base_accuracy", "trained_model_file_path", "metric_list",
 #                                                        'label_indexer_model_dir', ])

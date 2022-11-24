@@ -55,12 +55,12 @@ class DataIngestion:
 
             intervals = pd.date_range(start=self.data_ingestion_config.from_date,
                                       end=self.data_ingestion_config.to_date,
-                                      freq=freq).astype('str').tolist()
-        logger.debug(f"Prepared Interval: {intervals}")
+                                      freq=freq).astype('str').tolist()        
         if self.data_ingestion_config.to_date not in intervals:
             intervals.append(self.data_ingestion_config.to_date)
         if self.data_ingestion_config.from_date not in intervals:
             intervals.append(self.data_ingestion_config.from_date)
+        logger.debug(f"Prepared Interval: {intervals}")
         return intervals
 
     def download_files(self, n_day_interval_url: int = None):
