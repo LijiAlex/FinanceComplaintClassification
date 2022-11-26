@@ -1,3 +1,5 @@
+from typing import List
+
 from pyspark import keyword_only  ## < 2.0 -> pyspark.ml.util.keyword_only
 from pyspark.ml import Transformer
 from pyspark.ml.param.shared import Param, Params, TypeConverters, HasOutputCols, \
@@ -8,22 +10,24 @@ from pyspark.ml import Estimator
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import desc
 from pyspark.sql.functions import col, abs
-from typing import List
 from pyspark.sql.types import TimestampType, LongType
+
 from finance_complaint.logger import logger
 from finance_complaint.config.spark_manager import spark_session
 
-
+# DefaultParamsReadable, DefaultParamsWritable helps in saving and loading params
 class FrequencyEncoder(Estimator, HasInputCols, HasOutputCols,
                        DefaultParamsReadable, DefaultParamsWritable):
     frequencyInfo = Param(Params._dummy(), "getfrequencyInfo", "getfrequencyInfo",
                           typeConverter=TypeConverters.toList)
 
+    # keyword_only decorator takes the input supplied and puts in self._input_kwargs
     @keyword_only
     def __init__(self, inputCols: List[str] = None, outputCols: List[str] = None, ):
         super(FrequencyEncoder, self).__init__()
         kwargs = self._input_kwargs
 
+        # parameter that we need to get during fit has to be specified
         self.frequencyInfo = Param(self, "frequencyInfo", "")
         self._setDefault(frequencyInfo="")
         # self._set(**kwargs)

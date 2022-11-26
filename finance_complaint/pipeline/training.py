@@ -4,15 +4,7 @@ from finance_complaint.exception import FinanceException
 from finance_complaint.logger import logger
 from finance_complaint.config.pipeline.training import FinanceConfig
 from finance_complaint.entity.artifact_entity import *
-from finance_complaint.component import DataIngestion, DataValidation, DataTransformation
-""" from finance_complaint.component import DataIngestion, DataValidation, DataTransformation, ModelTrainer, \
-    ModelEvaluation, \
-    ModelPusher
-from finance_complaint.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact, \
-    DataTransformationArtifact, ModelTrainerArtifact, ModelEvaluationArtifact """
-
-
-
+from finance_complaint.component import DataIngestion, DataValidation, DataTransformation, ModelTrainer
 
 class TrainingPipeline:
 
@@ -56,15 +48,17 @@ class TrainingPipeline:
         except Exception as e:
             raise FinanceException(e, sys)
 
-    # def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
-    #     try:
-    #         model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
-    #                                      model_trainer_config=self.finance_config.get_model_trainer_config()
-    #                                      )
-    #         model_trainer_artifact = model_trainer.initiate_model_training()
-    #         return model_trainer_artifact
-    #     except Exception as e:
-    #         raise FinanceException(e, sys)
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
+        try:
+            logger.info(f"\n{'#'*15}Model Training Started{'#'*15}")
+            model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
+                                         model_trainer_config=self.finance_config.get_model_trainer_config()
+                                         )
+            model_trainer_artifact = model_trainer.initiate_model_training()
+            logger.info(f"\n{'#'*15}Model Training Ended{'#'*15}")
+            return model_trainer_artifact
+        except Exception as e:
+            raise FinanceException(e, sys)
 
     # def start_model_evaluation(self, data_validation_artifact, model_trainer_artifact) -> ModelEvaluationArtifact:
     #     try:
@@ -94,7 +88,7 @@ class TrainingPipeline:
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
             data_transformation_artifact = self.start_data_transformation(
                  data_validation_artifact=data_validation_artifact)
-            # model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             # model_eval_artifact = self.start_model_evaluation(data_validation_artifact=data_validation_artifact,
             #                                                   model_trainer_artifact=model_trainer_artifact
             #                                                   )

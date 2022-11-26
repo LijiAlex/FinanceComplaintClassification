@@ -1,9 +1,10 @@
 # import shutil
 import yaml
-# from typing import List
-# from pyspark.sql import DataFrame
 import os, sys
-# from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+# from typing import List
+
+from pyspark.sql import DataFrame
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
 from finance_complaint.exception import FinanceException
 from finance_complaint.logger import logger
@@ -36,17 +37,16 @@ def read_yaml_file(file_path: str) -> dict:
         raise FinanceException(e, sys) from e
 
 
-# def get_score(dataframe: DataFrame, metric_name, label_col, prediction_col) -> float:
-#     try:
-#         evaluator = MulticlassClassificationEvaluator(
-#             labelCol=label_col, predictionCol=prediction_col,
-#             metricName=metric_name)
-#         score = evaluator.evaluate(dataframe)
-#         print(f"{metric_name} score: {score}")
-#         logger.info(f"{metric_name} score: {score}")
-#         return score
-#     except Exception as e:
-#         raise FinanceException(e, sys)
+def get_score(dataframe: DataFrame, metric_name, label_col, prediction_col) -> float:
+    try:
+        evaluator = MulticlassClassificationEvaluator(
+            labelCol=label_col, predictionCol=prediction_col,
+            metricName=metric_name)
+        score = evaluator.evaluate(dataframe)
+        logger.info(f"{metric_name} score: {score}")
+        return score
+    except Exception as e:
+        raise FinanceException(e, sys)
 
 
 # def create_directories(directories_list: List[str], new_directory=False):

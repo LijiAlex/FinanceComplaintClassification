@@ -17,4 +17,5 @@ Classify the complaints registered at https://www.consumerfinance.gov/ as malici
 * Create transformed issue column using IDF
 * Apply vector assembler on all transformed columns
 * Apply standard scalar to assembled column
+* Transformed file will contain only the Scaled and Assembled columns and target feature.
 
