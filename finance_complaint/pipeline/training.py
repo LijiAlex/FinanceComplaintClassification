@@ -4,7 +4,8 @@ from finance_complaint.exception import FinanceException
 from finance_complaint.logger import logger
 from finance_complaint.config.pipeline.training import FinanceConfig
 from finance_complaint.entity.artifact_entity import *
-from finance_complaint.component import DataIngestion, DataValidation, DataTransformation, ModelTrainer
+from finance_complaint.component import DataIngestion, DataValidation, DataTransformation, ModelTrainer, \
+ModelEvaluation
 
 class TrainingPipeline:
 
@@ -60,16 +61,18 @@ class TrainingPipeline:
         except Exception as e:
             raise FinanceException(e, sys)
 
-    # def start_model_evaluation(self, data_validation_artifact, model_trainer_artifact) -> ModelEvaluationArtifact:
-    #     try:
-    #         model_eval_config = self.finance_config.get_model_evaluation_config()
-    #         model_eval = ModelEvaluation(data_validation_artifact=data_validation_artifact,
-    #                                      model_trainer_artifact=model_trainer_artifact,
-    #                                      model_eval_config=model_eval_config
-    #                                      )
-    #         return model_eval.initiate_model_evaluation()
-    #     except Exception as e:
-    #         raise FinanceException(e, sys)
+    def start_model_evaluation(self, data_validation_artifact, model_trainer_artifact) -> ModelEvaluationArtifact:
+        try:
+            logger.info(f"\n{'#'*15}Model evaluation started{'#'*15}")
+            model_eval_config = self.finance_config.get_model_evaluation_config()
+            model_eval = ModelEvaluation(data_validation_artifact=data_validation_artifact,
+                                         model_trainer_artifact=model_trainer_artifact,
+                                         model_eval_config=model_eval_config
+                                         )
+            return model_eval.initiate_model_evaluation()
+            logger.info(f"\n{'#'*15}Model evaluation Ended{'#'*15}")
+        except Exception as e:
+            raise FinanceException(e, sys)
 
     # def start_model_pusher(self, model_trainer_artifact: ModelTrainerArtifact):
     #     try:
@@ -89,9 +92,9 @@ class TrainingPipeline:
             data_transformation_artifact = self.start_data_transformation(
                  data_validation_artifact=data_validation_artifact)
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
-            # model_eval_artifact = self.start_model_evaluation(data_validation_artifact=data_validation_artifact,
-            #                                                   model_trainer_artifact=model_trainer_artifact
-            #                                                   )
+            model_eval_artifact = self.start_model_evaluation(data_validation_artifact=data_validation_artifact,
+                                                               model_trainer_artifact=model_trainer_artifact
+                                                              )
             # if model_eval_artifact.model_accepted:
             #     self.start_model_pusher(model_trainer_artifact=model_trainer_artifact)
             logger.info(f"\n{'#'*15}Training Pipeline Ended{'#'*15}")

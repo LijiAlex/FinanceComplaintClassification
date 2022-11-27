@@ -44,7 +44,8 @@ if __name__ == "__main__":
         parser.add_argument("--p", default=0, type=int, help="If provided prediction will be done else not")
         args = parser.parse_args()
 
-        main(training_status=args.t, prediction_status=args.p)
+        # main(training_status=args.t, prediction_status=args.p)
+        main(training_status=1, prediction_status=0)
     except Exception as e:
         print(e)
         logger.exception(FinanceException(e, sys))

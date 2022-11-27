@@ -1,5 +1,5 @@
 from collections import namedtuple
-# from datetime import datetime
+from datetime import datetime
 
 DataIngestionArtifact = namedtuple("DataIngestionArtifact",
                                    ["feature_store_file_path", "metadata_file_path", "download_dir"])
@@ -42,18 +42,18 @@ class ModelTrainerArtifact:
 # ModelPusherArtifact = namedtuple("ModelEvaluationArtifact", ["model_pushed_dir"])
 
 
-# class ModelEvaluationArtifact:
+class ModelEvaluationArtifact:
 
-#     def __init__(self, model_accepted, changed_accuracy, trained_model_path, best_model_path, active):
-#         self.model_accepted = model_accepted
-#         self.changed_accuracy = changed_accuracy
-#         self.trained_model_path = trained_model_path
-#         self.best_model_path = best_model_path
-#         self.active = active
-#         self.created_timestamp = datetime.now()
+    def __init__(self, model_accepted, changed_accuracy, trained_model_path, best_model_path, active):
+        self.model_accepted = model_accepted
+        self.changed_accuracy = changed_accuracy
+        self.trained_model_path = trained_model_path
+        self.best_model_path = best_model_path
+        self.active = active
+        self.created_timestamp = datetime.now()
 
-#     def to_dict(self):
-#         return self.__dict__
+    def to_dict(self):
+        return self.__dict__
 
-#     def __str__(self):
-#         return str(self.to_dict())
+    def __str__(self):
+        return str(self.to_dict())
