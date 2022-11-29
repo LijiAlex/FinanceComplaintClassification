@@ -188,6 +188,7 @@ class S3Estimator(CloudEstimator):
             key = f"{key}/"
         key = f"{key}{self.__model_dir}/"
         paths = []
+        # gettings all folders in the bucket specified
         for key_summary in self.bucket.objects.filter(Prefix=key):
             if key_summary.key.endswith(self.__model_file_name):
                 paths.append(key_summary.key)

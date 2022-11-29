@@ -69,6 +69,7 @@ class ModelEvaluation:
         dataframe = label_indexer_model.transform(dataframe)
 
         best_model_path = self.s3_finance_estimator.get_latest_model_path()
+        
         trained_model_dataframe = trained_model.transform(dataframe)
         best_model_dataframe = self.s3_finance_estimator.transform(dataframe)
 

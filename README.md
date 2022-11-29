@@ -5,6 +5,7 @@ Classify the complaints registered at https://www.consumerfinance.gov/ as malici
 * Use pyspark
 * Download data from website in parts
 * Convert data files to parquet format since the data is huge.
+* Save model in S3 bucket in compressed format.
 
 ### Transformation Strategies
 * Generate a new feature ['diff_in_days'].

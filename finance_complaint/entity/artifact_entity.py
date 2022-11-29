@@ -28,18 +28,18 @@ class ModelTrainerArtifact:
         self.model_trainer_train_metric_artifact = model_trainer_train_metric_artifact
         self.model_trainer_test_metric_artifact = model_trainer_test_metric_artifact
 
-#     def _asdict(self):
-#         try:
-#             response = dict()
-#             response['model_trainer_ref_artifact'] = self.model_trainer_ref_artifact._asdict()
-#             response['model_trainer_train_metric_artifact'] = self.model_trainer_train_metric_artifact._asdict()
-#             response['model_trainer_test_metric_artifact'] = self.model_trainer_test_metric_artifact._asdict()
-#             return response
-#         except Exception as e:
-#             raise e
+    def _asdict(self):
+        try:
+            response = dict()
+            response['model_trainer_ref_artifact'] = self.model_trainer_ref_artifact._asdict()
+            response['model_trainer_train_metric_artifact'] = self.model_trainer_train_metric_artifact._asdict()
+            response['model_trainer_test_metric_artifact'] = self.model_trainer_test_metric_artifact._asdict()
+            return response
+        except Exception as e:
+            raise e
 
 
-# ModelPusherArtifact = namedtuple("ModelEvaluationArtifact", ["model_pushed_dir"])
+ModelPusherArtifact = namedtuple("ModelPusherArtifact", ["model_pushed_dir"])
 
 
 class ModelEvaluationArtifact:
