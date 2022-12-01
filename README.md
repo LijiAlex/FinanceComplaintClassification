@@ -20,3 +20,25 @@ Classify the complaints registered at https://www.consumerfinance.gov/ as malici
 * Apply standard scalar to assembled column
 * Transformed file will contain only the Scaled and Assembled columns and target feature.
 
+## Tech Stack Used
+1. Python 
+2. PySpark
+3. PySpark ML
+4. Airflow as Scheduler
+5. MongoDB
+
+
+## Infrastructure Required.
+
+1. GCP Compute Engine
+2. S3 Bucket
+3. Artifact Registry
+
+## Dashboarding
+1. Grafana
+2. Prometheus
+3. Node Exporter
+4. Promtail
+5. Loki
+
+

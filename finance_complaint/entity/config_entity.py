@@ -1,6 +1,6 @@
 from collections import namedtuple
-# from finance_complaint.constant.prediction_pipeline_config.file_config import ARCHIVE_DIR, INPUT_DIR, FAILED_DIR, \
-#     PREDICTION_DIR, REGION_NAME
+from finance_complaint.constant.prediction_pipeline_config.file_config import ARCHIVE_DIR, INPUT_DIR, FAILED_DIR, \
+    PREDICTION_DIR, REGION_NAME
 
 TrainingPipelineConfig = namedtuple("PipelineConfig", ["pipeline_name", "artifact_dir"])
 
@@ -32,19 +32,19 @@ ModelEvaluationConfig = namedtuple("ModelEvaluationConfig",
 ModelPusherConfig = namedtuple("ModelPusherConfig", ["model_dir", "bucket_name"])
 
 
-# class PredictionPipelineConfig:
+class PredictionPipelineConfig:
 
-#     def __init__(self, input_dir=INPUT_DIR,
-#                  prediction_dir=PREDICTION_DIR,
-#                  failed_dir=FAILED_DIR,
-#                  archive_dir=ARCHIVE_DIR,
-#                  region_name=REGION_NAME
-#                  ):
-#         self.input_dir = input_dir
-#         self.prediction_dir = prediction_dir
-#         self.failed_dir = failed_dir
-#         self.archive_dir = archive_dir
-#         self.region_name = region_name
+    def __init__(self, input_dir=INPUT_DIR,
+                 prediction_dir=PREDICTION_DIR,
+                 failed_dir=FAILED_DIR,
+                 archive_dir=ARCHIVE_DIR,
+                 region_name=REGION_NAME
+                 ):
+        self.input_dir = input_dir
+        self.prediction_dir = prediction_dir
+        self.failed_dir = failed_dir
+        self.archive_dir = archive_dir
+        self.region_name = region_name
 
-#     def to_dict(self):
-#         return self.__dict__
+    def to_dict(self):
+        return self.__dict__

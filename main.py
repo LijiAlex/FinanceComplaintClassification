@@ -22,7 +22,7 @@ def start_prediction(start=False):
         if not start:
             return None
         print("Prediction started")
-        # PredictionPipeline().start_batch_prediction()        
+        PredictionPipeline().start_batch_prediction()        
     except Exception as e:
         raise FinanceException(e, sys)
 
